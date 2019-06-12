@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Taipei OD Table - Demo </title>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<link rel="stylesheet" href="css/leaflet.css" />
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+
+ <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+   crossorigin=""></script>
+<script src="js/leaflet.curve.js"></script>
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/Leaflet.Dialog.js"></script>
+<!-- <script src="https://d3js.org/d3-selection.v1.min.js"></script> -->
+
+<!-- Load c3.css -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="css/c3.min.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link href="dist/leaflet.fullscreen.css" rel="stylesheet">
+<link href="css/Leaflet.Dialog.css" rel="stylesheet">
+
+<!-- Load d3.js and c3.js -->
+<script src="js/c3.min.js"></script>
+<script src="dist/Leaflet.fullscreen.min.js"></script>
+
+<script src="js/preProcess.js"></script>
+<!-- <script src="js/upload.js"></script> -->
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-3 col-md-3 col-lg-3" >
+        <div class="btn-group">
+          <button type="button" id="select_t1" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            大項目
+          </button>
+          <div class="dropdown-menu" id="t1_menu">
+            <a class="dropdown-item" href="#">項目二</a>
+            <a class="dropdown-item" href="#">項目三</a>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="button" id="select_st2" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            請選擇子項目
+          </button>
+          <div class="dropdown-menu" id="st2_menu">
+            <a class="dropdown-item" href="#">項目一</a>
+            <a class="dropdown-item" href="#">項目二</a>
+            <a class="dropdown-item" href="#">項目三</a>
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-9 col-md-9 col-lg-9" id="mainType"></div>
+  </div>
+  <div class="row">
+	 <div class="col-xs-12 col-md-12 col-lg-12" id="map"></div>
+  </div>
+  </div>
+
+
+
+<script>
+
+// upload_button("uploader", load_dataset);
+var map = L.map('map').setView([25.1274977,121.4927091], 13);
+var FullS=new L.Control.Fullscreen();
+FullS.setPosition('bottomright');
+map.addControl(FullS);
+var mapZoomLevel = map.getZoom();
+map.zoomControl.setPosition('bottomright');
+L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',apikey:'c4377a218be242ddb3297260d216b11b'}).addTo(map);
+
+var colorSet2 = ['#e6194b','#f58231','#ffe119','#bcf60c','#3cb44b','#46f0f0','#4363d8','#911eb4','#f032e6','#808080'];
+
+d3.csv("./11f_tag.csv", function(data) {
+  tempArrayData=data;
+  preLoadProcess(tempArrayData)
+});
+
+</script>
+
+</body>
+</html>

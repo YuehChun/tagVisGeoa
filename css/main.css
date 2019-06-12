@@ -1,0 +1,22 @@
+
+.mapRow{
+	height: 720px;
+}
+#map { 
+	height: 720px;
+}
+.popupMap{
+	font-size:20px;
+	text-align: center;
+}
+.popupSt2{
+	font-size: 15px;
+}
+.popupFont{
+	font-size: 13px;
+}
+.vcenter{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}ㄌ
