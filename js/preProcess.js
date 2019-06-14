@@ -46,7 +46,7 @@ function preLoadProcess(fullData){
     var theT1Item = {"st2":e.st2 ,"percent":percent, "numpeo":numpeo, "cx":e.cx, "cy":e.cy}
     if(e.t1 in theT1Data){
       if(e.local_name in theT1Data[e.t1]){
-        if(e.percent>theT1Data[e.t1][e.local_name]['numpeo']){
+        if(numpeo>theT1Data[e.t1][e.local_name]['numpeo']){
           theT1Data[e.t1][e.local_name]=theT1Item
         }
       }else{
@@ -125,9 +125,7 @@ function getT1Item(t1){
     }else{
       st2_bucket[st2]=theT1Data[t1][local]['numpeo']
     }
-    // console.log(item)
   }
-
   var items = Object.keys(st2_bucket).map(function(key) {
     return [key, st2_bucket[key]];
   });
@@ -141,8 +139,8 @@ function getT1Item(t1){
     colorIndex = i%colorNum
     st2Color[k[0]] =  colorSet2[colorIndex]
   });
-
   for(local in theT1Data[t1]){
+    console.log(theT1Data[t1])
     st2 = theT1Data[t1][local]['st2']
     _marker = {
       'x':theT1Data[t1][local]['cx'],
