@@ -112,10 +112,18 @@ function removeAllMapElement(){
   });
 }
 
+function getTheTableData(t1D){
+  for ( k in t1D){
+    console.log(t1D[k])
+  }
+}
+
 function getT1Item(t1){
   var st2_bucket = {}
   var max_opacity = 0,
       min_opacity = 99999;
+  var strTable_1 = ""
+  var k_i=1
   for(local in theT1Data[t1]){
     st2 = theT1Data[t1][local]['st2']
     max_opacity=max_opacity<theT1Data[t1][local]['percent']?theT1Data[t1][local]['percent']:max_opacity
@@ -125,7 +133,22 @@ function getT1Item(t1){
     }else{
       st2_bucket[st2]=theT1Data[t1][local]['numpeo']
     }
+
+
+
+    // find the top st2 by every local
+    num = new Number(theT1Data[t1][local]['percent']*100);
+    showNum = num.toFixed(1)+"%"
+    strTable_1+="<tr><th scope=\"row\">"+k_i+"</th> <td>"+local+"</td> <td>"+st2+"</td> <td>"+theT1Data[t1][local]['numpeo']+"</td> <td>"+showNum+"</td> </tr>"
+    k_i+=1
+
+
   }
+  $("#T1Table1").html(strTable_1)
+
+
+
+
   var items = Object.keys(st2_bucket).map(function(key) {
     return [key, st2_bucket[key]];
   });
@@ -140,7 +163,6 @@ function getT1Item(t1){
     st2Color[k[0]] =  colorSet2[colorIndex]
   });
   for(local in theT1Data[t1]){
-    console.log(theT1Data[t1])
     st2 = theT1Data[t1][local]['st2']
     _marker = {
       'x':theT1Data[t1][local]['cx'],
@@ -158,6 +180,29 @@ function getT1Item(t1){
     tempL_M.addTo(map);
     // tempL_M.addTo(_map).on('click' ,L.bind(HiLightFunc, null, _map , _marker['noName']));
   }
+  // console.log(dataTree)
+
+  var strTable_2=""
+  var k_i=1
+  for (st2 in dataTree[t1]){
+    var maxItem = {}
+    var maxvar = 0
+    st2Item = dataTree[t1][st2]
+    for(x in st2Item){
+      if (st2Item[x]['percent']>maxvar){
+        maxvar=st2Item[x]['percent']
+        st2Item[x]['local']=x
+        maxItem=st2Item[x]
+      }
+    }
+
+
+    num = new Number(maxItem['percent']*100);
+    showNum = num.toFixed(1)+"%"
+    strTable_2+="<tr><th scope=\"row\">"+k_i+"</th> <td>"+st2+"</td> <td>"+maxItem['local']+"</td> <td>"+maxItem['numpeo']+"</td> <td>"+showNum+"</td> </tr>"
+    k_i+=1
+  }
+  $("#T1Table2").html(strTable_2)
 
 }
 

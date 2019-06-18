@@ -19,4 +19,12 @@
     display: inline-block;
     vertical-align: middle;
     float: none;
-}ㄌ
+}
+.block {
+    width: 100%;
+}
+.tableArea{
+  height:300px;
+  overflow-y: scroll;
+}
+
