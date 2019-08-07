@@ -162,6 +162,10 @@ function startMap(){
   $("#login").css("display","none");
   $("#map_area").css("display","block");
 }
+function LoadCSDBackFunc( data ){
+      tempArrayData=data;
+      preLoadProcess(tempArrayData)
+}
 function LoadingData(eoe){
   if(eoe.length>1){
     startMap();
@@ -170,10 +174,7 @@ function LoadingData(eoe){
       bgColor:"#CCCCCC",
       spinner:"spinner3"
     });
-    d3.csv("./logs/"+eoe[0], function(data) {
-      tempArrayData=data;
-      preLoadProcess(tempArrayData)
-    });
+    d3.csv("./logs/"+eoe[0], LoadCSDBackFunc);
     $("body").css('background-color','#fff')
 
     if (eoe[1]=='a'){

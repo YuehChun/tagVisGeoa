@@ -22,6 +22,24 @@ function getOpactity(maxN,minN,n){
 }
 
 
+function getOpactity2(n){
+  var percentOfOpactity = Math.round(n*1000)/10
+  if (percentOfOpactity<10){
+    en_d=0.05
+  }else if(percentOfOpactity>=10 && percentOfOpactity<20){
+    en_d=0.1
+  }else if(percentOfOpactity>=20 && percentOfOpactity<30){
+    en_d=0.3
+  }else if(percentOfOpactity>=30 && percentOfOpactity<40){
+    en_d=0.5
+  }else if(percentOfOpactity>=40 && percentOfOpactity<50){
+    en_d=0.7
+  }else{
+    en_d=0.9
+  }
+  return en_d
+}
+
 function getFontSiz(n){
   range = Math.ceil((maxVal-minVal)/7)
   return Math.ceil((n-minVal)/range)*4
@@ -71,7 +89,7 @@ function showHomeData(hData){
         'radius' : getRadius(hData[local]['numpeo']),
         'percent' : hData[local]['percent'],
         'fillColor' : st2Color[st2],
-        'opacity' : getOpactity(max_opacity,min_opacity,hData[local]['percent']),
+        'opacity' : getOpactity2(hData[local]['percent']),
         'numpeo' : hData[local]['numpeo'],
         'local_name' : local,
         'st2' : st2
