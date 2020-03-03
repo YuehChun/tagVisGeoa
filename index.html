@@ -1,8 +1,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Tags visualization with GeoMap - Demo </title>
-<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<title>Tags Visualization based on GeoMap - Demo </title>
 <link rel="stylesheet" href="css/leaflet.css" />
 <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
@@ -40,28 +39,8 @@
 <script src="js/preProcess.js"></script>
 <!-- <script src="js/upload.js"></script> -->
 </head>
-<body style="background-color:#666;">
+<body style="background-color:#fff;">
 
-    <div id="login" style="width:100%;">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-              <div class="card card-signin my-5">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Welcome</h5>
-                  <form class="form-signin" action="javascript:gotCheck();">
-                    <div class="form-label-group">
-                      <input type="text" id="inputCode" class="form-control" placeholder="Code" required autofocus>
-                      <label for="inputCode">Invitation code</label>
-                    </div>
-                    <button class="btn btn-lg btn-info btn-block text-uppercase">submit</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
 
 <div id="map_area" style="width: 100%;height: 100%;">
   <div class="container-fluid">
@@ -150,7 +129,6 @@ FullS.setPosition('bottomright');
 map.addControl(FullS);
 var mapZoomLevel = map.getZoom();
 map.zoomControl.setPosition('bottomright');
-$("#map_area").css("display","none");
 
 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',apikey:'c4377a218be242ddb3297260d216b11b'}).addTo(map);
 
@@ -158,53 +136,27 @@ var colorSet2 = ['#e6194b','#f58231','#ffe119','#bcf60c','#3cb44b','#46f0f0','#4
 
 
 
-function startMap(){
-  $("#login").css("display","none");
-  $("#map_area").css("display","block");
-}
 function LoadCSDBackFunc( data ){
       tempArrayData=data;
       preLoadProcess(tempArrayData)
 }
-function LoadingData(eoe){
-  if(eoe.length>1){
-    startMap();
+function LoadingData(){
     $.fakeLoader({
       timeToHide:5000,
       bgColor:"#CCCCCC",
       spinner:"spinner3"
     });
-    d3.csv("./logs/"+eoe[0], LoadCSDBackFunc);
+    d3.csv("./logs/tp_tag", LoadCSDBackFunc);
     $("body").css('background-color','#fff')
 
-    if (eoe[1]=='a'){
-      map.setView([25.115387 , 121.511559], 13);
-    } else if (eoe[1]=='b'){
-      map.setView([24.133553, 120.677134], 13);
-    } else if (eoe[1]=='c'){
-      map.setView([24.156996, 120.659418], 13);
-    } else if (eoe[1]=='d'){
-      map.setView([22.796057, 120.289950], 13);
-    } else if (eoe[1]=='e'){
-      map.setView([22.703513, 120.518823], 13);
-    }else{
-      location.reload();
-    }
-  }
-}
-
-function load_js(sgggg){
-  $.getScript( 'https://hugo-m-line.herokuapp.com/extraWeb?invit='+sgggg+'&f=t').done(
-    function(){
-      LoadingData(eoe)
-    }
-  );
+    map.setView([25.115387 , 121.511559], 13);
 }
 
 function gotCheck(){
   var code = $("#inputCode").val()
   load_js(code)
 }
+LoadingData();
 
 </script>
 
